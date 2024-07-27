@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      name: auth
-    tempelate:
-      metadata:
-        labels: 
-          app: auth
-      spec:
-        containers:
-          - name: auth
-            image: irshadpp/auth
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: irshadpp/auth
 ---
 apiVersion: v1
 kind: Service
@@ -27,4 +27,4 @@ spec:
     - name: auth
       protocol: TCP
       port: 3000
-      targetPort:3000
+      targetPort: 3000
