@@ -1,18 +1,23 @@
 import request from "supertest";
 import { app } from "../../app";
+import { signin } from "../../test/setup";
 
-it("clears the cookie after signout", async () => {
-  await request(app)
-    .post("/api/users/signup")
-    .send({
-      email: "test@gmail.com",
-      password: "123456",
-    })
-    .expect(201);
-
+it("response with details about current user", async()=>{
+  const cookie = await signin();
   const response = await request(app)
-    .post("/api/users/current-user")
-    .send()
-    .expect(200);
-    
-});
+  .get('/api/users/current-user')
+  .set("Cookie", cookie)
+  .send()
+  .expect(200);
+
+  expect(response.body.currentUser.email).toEqual("test@gmail.com");
+})
+
+
+it("should return currentUser as null", async()=>{
+  const response = await request(app)
+  .get('/api/users/current-user')
+  .send()
+  .expect(200)
+  expect(response.body.currentUser).toEqual(null);
+})
