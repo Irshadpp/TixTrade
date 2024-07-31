@@ -10,16 +10,24 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
-            dest: '.'
+          - src: "src/**/*.ts"
+            dest: "."
+    - image: irshadpp/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: "."
     - image: irshadpp/client
       context: client
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js'
-            dest: '.'
+          - src: "**/*.js"
+            dest: "."
 deploy:
   kubectl:
     manifests:
