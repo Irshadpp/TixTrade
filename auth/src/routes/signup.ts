@@ -1,12 +1,10 @@
 import express, { Request, Response } from "express";
-import { body, validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/request-validation-error";
+import { body } from "express-validator";
 import { User } from "../model/user";
-import { BadRequestError } from "../errors/bad-request-error";
 import { Password } from "../services/password";
 import jwt from "jsonwebtoken";
-import { validateRequest } from "../middlewares/validate-request";
 const router = express.Router();
+import { validateRequest, BadRequestError} from "@ir-tixtrade/common"
 
 router.post(
   "/api/users/signup",
@@ -39,6 +37,7 @@ router.post(
     req.session = {
       jwt: userJwt,
     };
+    console.log("Successfully done the signup with", email);
     res.status(201).send(user);
   }
 );
