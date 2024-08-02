@@ -20,6 +20,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: "."
+    - image: irshadpp/orders
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: "."
     - image: irshadpp/client
       context: client
       docker:
