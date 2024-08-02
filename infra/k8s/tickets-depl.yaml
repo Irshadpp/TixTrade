@@ -16,6 +16,14 @@ spec:
         - name: tickets
           image: irshadpp/tickets
           env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_CLUSTER_ID
+              value: tixtrade
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
             - name: MONGO_URI
               value: 'mongodb://tickets-mongo-srv:27017'
             - name: JWT_KEY

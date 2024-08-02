@@ -4,8 +4,12 @@ import { app } from "../app";
 import  request  from "supertest";
 import jwt from 'jsonwebtoken'
 
+jest.mock('../nats-wrapper.ts');
+
 let mongo: any;
 beforeAll(async () => {
+
+  jest.clearAllMocks();
 
   process.env.JWT_KEY = "abcde"
   mongo = await MongoMemoryServer.create();
