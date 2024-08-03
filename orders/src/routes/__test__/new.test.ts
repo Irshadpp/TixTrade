@@ -5,6 +5,7 @@ import { signin } from "../../test/setup";
 import { Ticket } from "../../models/tickets";
 import { Order } from "../../models/orders";
 import { OrderStatus } from "@ir-tixtrade/common";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("returns a not found error if the ticket does not exixt", async()=>{
     const ticketId = new mongoose.Types.ObjectId().toHexString();
@@ -52,4 +53,18 @@ it("reserves a ticket", async ()=>{
     .expect(201);
 });
 
-it.todo("Emits an order created event");
+it("Emits an order created event", async ()=>{
+    const ticket = Ticket.build({
+        title: "concert",
+        price: 20
+    });
+    await ticket.save();
+
+    await request(app)
+    .post('/api/orders')
+    .set("Cookie", signin())
+    .send({ticketId: ticket.id})
+    .expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalledTimes(1);
+});

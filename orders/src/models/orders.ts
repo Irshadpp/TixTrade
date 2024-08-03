@@ -1,6 +1,7 @@
-import { OrderStatus } from "@ir-tixtrade/common";
 import mongoose from "mongoose";
 import { TicketDoc } from "./tickets";
+import { OrderStatus } from "@ir-tixtrade/common";
+
 
 interface OrderAttrs {
   userId: string;
