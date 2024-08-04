@@ -36,6 +36,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: "."
+    - image: irshadpp/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: "."
     - image: irshadpp/client
       context: client
       docker:
