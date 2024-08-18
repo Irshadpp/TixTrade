@@ -20,8 +20,6 @@ router.post(
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-      // console.log("User already exist in ",email);
-      // return res.send({});
       throw new BadRequestError("Email already in use");
     }
     const hashedPassword = await Password.toHash(password);
