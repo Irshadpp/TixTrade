@@ -5,6 +5,9 @@ import { OrderCreatedListener } from "./events/listeners/order-created-listener"
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
 
 const start = async () => {
+
+  console.log("Startinig payment service....")
+
   const jwtKey = process.env.JWT_KEY;
   const MONGO_URI = process.env.MONGO_URI;
   const NATS_CLUSTER_ID = process.env.NATS_CLUSTER_ID;
